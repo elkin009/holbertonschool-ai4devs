@@ -1,0 +1,13 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Task Management API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/tasks": {
+      "get": { "summary": "List tasks" },
+      "post": { "summary": "Create task" }
+    }
+  }
+}
