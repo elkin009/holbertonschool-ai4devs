@@ -1,11 +1,19 @@
+
 using System;
 using System.IO;
 
-class DataProcessor {
-    public void ProcessFile(string fileName) {
-        // BUG: StreamReader is not closed
-        StreamReader reader = new StreamReader(fileName);
-        string content = reader.ReadToEnd();
-        Console.WriteLine(content);
+class FileSystemManager {
+    public void DisplayFileData(string filePath) {
+        Console.WriteLine("Opening file: " + filePath);
+        
+        // BUG: The StreamReader is instantiated but never closed or disposed.
+        // In a real application, this causes a resource leak and locks the file.
+        StreamReader fileReader = new StreamReader(filePath);
+        string fileContent = fileReader.ReadToEnd();
+        
+        Console.WriteLine("--- FILE START ---");
+        Console.WriteLine(fileContent);
+        Console.WriteLine("--- FILE END ---");
+        // missing fileReader.Close() or using block
     }
 }
