@@ -1,13 +1,22 @@
-function calculateTotal(prices) {
+/**
+ * Calculates the total sum of prices in a shopping cart array.
+ * Includes a check for empty arrays.
+ */
+function calculateCartTotal(prices) {
     let total = 0;
-    // BUG: Using 'in' instead of 'of' with an array
+    if (prices.length === 0) {
+        return 0;
+    }
+
+    // BUG: Using 'for...in' on an array retrieves keys (strings) 
+    // instead of values, causing unexpected results.
     for (let price in prices) {
         total += prices[price];
     }
+    
     return total;
 }
 
-const items = [10.5, 20, 5];
-console.log("Total is: " + calculateTotal(items));
-
-
+const userCart = [15.99, 23.50, 4.00, 10.00];
+console.log("Processing cart sum...");
+console.log("The final calculated total is: " + calculateCartTotal(userCart));
