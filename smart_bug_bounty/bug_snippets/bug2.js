@@ -1,22 +1,18 @@
 /**
- * Calculates the total sum of prices in a shopping cart array.
- * Includes a check for empty arrays.
+ * Bir dizideki sayıların toplamını hesaplayan fonksiyon.
+ * for...in kullanımı nedeniyle hatalı sonuç verebilir.
  */
-function calculateCartTotal(prices) {
+function calculateSum(numbers) {
     let total = 0;
-    if (prices.length === 0) {
-        return 0;
-    }
-
-    // BUG: Using 'for...in' on an array retrieves keys (strings) 
-    // instead of values, causing unexpected results.
-    for (let price in prices) {
-        total += prices[price];
+    
+    // BUG: Dizilerde 'in' kullanmak değerleri değil indeksleri (string olarak) getirir
+    // Bu da toplama yerine yan yana birleştirme (concatenation) yapabilir.
+    for (let index in numbers) {
+        total += numbers[index];
     }
     
     return total;
 }
 
-const userCart = [15.99, 23.50, 4.00, 10.00];
-console.log("Processing cart sum...");
-console.log("The final calculated total is: " + calculateCartTotal(userCart));
+const prices = [100, 200, 300];
+console.log("Toplam Fiyat:", calculateSum(prices));
