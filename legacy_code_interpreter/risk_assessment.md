@@ -2,13 +2,12 @@
 
 | Risk | Severity | Notes |
 | :--- | :--- | :--- |
-| **Deprecated Browser Support** | **High** | IE6-8 kimi köhnə brauzerlər üçün yazılmış xüsusi kodlar (hacks) müasir mühitlərdə gözlənilməz xətalara səbəb ola bilər. |
-| **Security Vulnerabilities** | **High** | Köhnə versiyalarda məlum olan XSS (Cross-Site Scripting) boşluqları var, xüsusən də $.htmlPrefilter() metodunda. |
-| **Lack of Automated Unit Tests** | **Medium** | Kodun böyük hissəsi üçün müasir test freymvorkları ilə inteqrasiya olunmuş avtomatlaşdırılmış testlər yoxdur. |
-| **Global Namespace Pollution** | **Medium** | Bütün funksionallığın qlobal `$` və `jQuery` obyektlərindən asılı olması digər kitabxanalarla toqquşma riski yaradır. |
-| **Maintenance Complexity** | **Medium** | Kodun monolitik quruluşu və həddindən artıq mürəkkəb Regex istifadəsi yeni tərtibatçıların kodu başa düşməsini çətinləşdirir. |
-| **No ES6+ Support** | **Low** | Kod bazası tamamilə köhnə ES5 standartı ilə yazılıb, bu da müasir optimallaşdırma (tree-shaking) imkanlarını məhdudlaşdırır. |
+| **Deprecated Browser Support** | **High** | IE6-8 üçün yazılmış köhnə kodlar müasir mühitlərdə gözlənilməz xətalara səbəb ola bilər. |
+| **Security Vulnerabilities** | **High** | Köhnə versiyalarda məlum olan XSS boşluqları (məsələn, $.htmlPrefilter) təhlükəsizlik riski yaradır. |
+| **Lack of Automated Unit Tests** | **Medium** | Kodun böyük hissəsi üçün avtomatlaşdırılmış testlərin olmaması refaktorinq zamanı xəta riskini artırır. |
+| **Global Namespace Pollution** | **Medium** | Qlobal `$` və `jQuery` obyektlərindən asılılıq digər kitabxanalarla konflikt yaratma ehtimalını artırır. |
+| **Maintenance Complexity** | **Medium** | Mürəkkəb Regex və monolitik struktur yeni tərtibatçılar üçün kodun başa düşülməsini çətinləşdirir. |
 
 ## Risk Mitigation Strategy
-1. **Short-term:** Təhlükəli metodların istifadəsini məhdudlaşdırmaq və jQuery Migrate plugin-dən istifadə etmək.
-2. **Long-term:** Layihəni tədricən müasir "Vanilla JavaScript" (ES6+) metodlarına keçirmək və köhnə brauzer dəstəyini ləğv etmək.
+1. **Short-term:** Təhlükəli metodları məhdudlaşdırmaq və jQuery Migrate istifadə etmək.
+2. **Long-term:** Tədricən müasir Vanilla JavaScript (ES6+) standartlarına keçid etmək.
