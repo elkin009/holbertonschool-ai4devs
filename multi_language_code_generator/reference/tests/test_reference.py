@@ -5,27 +5,23 @@ class TestInventoryEngine(unittest.TestCase):
     def setUp(self):
         self.engine = InventoryEngine()
 
-    def test_cases(self):
-        # 1. Normal Case
-        self.assertEqual(self.engine.calculate_recommendation(10, 2, 5, 5), {"recommendation": 5, "priority": "Normal"})
-        # 2. Low Stock Case (High Priority)
-        self.assertEqual(self.engine.calculate_recommendation(2, 2, 5, 10), {"recommendation": 18, "priority": "High"})
-        # 3. Overstock Case
-        self.assertEqual(self.engine.calculate_recommendation(50, 1, 5, 5), {"recommendation": 0, "priority": "Normal"})
-        # 4. Zero Sales Velocity
-        self.assertEqual(self.engine.calculate_recommendation(10, 0, 5, 5), {"recommendation": 0, "priority": "Normal"})
-        # 5. Critical Depletion (Zero Stock)
-        self.assertEqual(self.engine.calculate_recommendation(0, 5, 2, 10), {"recommendation": 20, "priority": "High"})
-        # 6. Safety Stock exactly equals current stock
-        self.assertEqual(self.engine.calculate_recommendation(5, 1, 5, 5), {"recommendation": 5, "priority": "Normal"})
-        # 7. Negative sales velocity handling
-        self.assertEqual(self.engine.calculate_recommendation(10, -5, 5, 5), {"recommendation": 0, "priority": "Normal"})
-        # 8. High sales, short lead time
-        self.assertEqual(self.engine.calculate_recommendation(10, 10, 1, 5), {"recommendation": 5, "priority": "Normal"})
-        # 9. Low sales, very long lead time
-        self.assertEqual(self.engine.calculate_recommendation(5, 0.5, 20, 5), {"recommendation": 10, "priority": "Normal"})
-        # 10. Large numbers handling
-        self.assertEqual(self.engine.calculate_recommendation(1000, 100, 10, 500), {"recommendation": 500, "priority": "Normal"})
+    def test_all_cases(self):
+        cases = [
+            (10, 2, 5, 5, 5, "Normal"),
+            (2, 2, 5, 10, 18, "High"),
+            (50, 1, 5, 5, 0, "Normal"),
+            (10, 0, 5, 5, 0, "Normal"),
+            (0, 5, 2, 10, 20, "High"),
+            (5, 1, 5, 5, 5, "Normal"),
+            (10, -5, 5, 5, 0, "Normal"),
+            (10, 10, 1, 5, 5, "Normal"),
+            (5, 0.5, 20, 5, 10, "Normal"),
+            (1000, 100, 10, 500, 500, "Normal")
+        ]
+        for stock, vel, lead, safety, expected_qty, expected_prio in cases:
+            res = self.engine.calculate_recommendation(stock, vel, lead, safety)
+            self.assertEqual(res["recommendation"], expected_qty)
+            self.assertEqual(res["priority"], expected_prio)
 
 if __name__ == '__main__':
     unittest.main()
