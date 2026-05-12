@@ -4,10 +4,24 @@
     "title": "Task Management API",
     "version": "1.0.0"
   },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
   "paths": {
     "/tasks": {
-      "get": { "summary": "List tasks" },
+      "get": { "summary": "List tasks with pagination" },
       "post": { "summary": "Create task" }
+    },
+    "/tasks/{id}": {
+      "get": { "summary": "Get task" },
+      "put": { "summary": "Update task" },
+      "delete": { "summary": "Delete task" }
     }
   }
 }

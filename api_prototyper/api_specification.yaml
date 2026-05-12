@@ -1,40 +1,18 @@
 openapi: 3.0.3
 info:
   title: Task Management API
-  description: A robust API for managing tasks with JWT authentication and pagination.
+  description: Robust API with JWT, Pagination, and full CRUD.
   version: 1.0.0
-servers:
-  - url: http://localhost:3000/api/v1
 components:
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
-  schemas:
-    Task:
-      type: object
-      properties:
-        id:
-          type: integer
-        title:
-          type: string
-        description:
-          type: string
-        status:
-          type: string
-          enum: [todo, in-progress, completed]
-    Error:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
 paths:
   /tasks:
     get:
-      summary: List all tasks
+      summary: List all tasks (with pagination)
       security:
         - bearerAuth: []
       parameters:
@@ -43,62 +21,31 @@ paths:
           schema:
             type: integer
             default: 1
-        - name: limit
-          in: query
-          schema:
-            type: integer
-            default: 10
       responses:
         '200':
-          description: List of tasks with pagination
+          description: OK
         '401':
           description: Unauthorized
     post:
-      summary: Create a new task
-      security:
-        - bearerAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Task'
+      summary: Create a task
       responses:
         '201':
-          description: Task created
+          description: Created
   /tasks/{id}:
     get:
       summary: Get task details
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
       responses:
         '200':
-          description: Task details
+          description: OK
         '404':
-          description: Task not found
+          description: Not Found
     put:
       summary: Update a task
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
       responses:
         '200':
-          description: Task updated
+          description: Updated
     delete:
       summary: Delete a task
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
       responses:
         '204':
-          description: Task deleted
+          description: Deleted
