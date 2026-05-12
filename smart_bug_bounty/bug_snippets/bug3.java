@@ -1,13 +1,19 @@
+import java.util.Objects;
 
-public class UserCheck {
+public class UserValidator {
     public static void main(String[] args) {
-        String user1 = new String("Alice");
-        String user2 = new String("Alice");
-        // BUG: Using == for object comparison instead of .equals()
-        if (user1 == user2) {
-            System.out.println("Users are the same.");
+        // Simulating user input comparison
+        String registeredUser = new String("admin_user");
+        String loginAttempt = new String("admin_user");
+
+        System.out.println("Checking credentials for: " + loginAttempt);
+
+        // BUG: Using == for string object comparison instead of .equals()
+        // This compares memory references rather than content.
+        if (loginAttempt == registeredUser) {
+            System.out.println("Login Successful: Identity verified.");
         } else {
-            System.out.println("Users are different.");
+            System.out.println("Login Failed: Strings do not match reference.");
         }
     }
 }
