@@ -2,18 +2,16 @@
 using System;
 using System.IO;
 
-class FileSystemManager {
-    public void DisplayFileData(string filePath) {
-        Console.WriteLine("Opening file: " + filePath);
+class FileLoader {
+    public void ReadMyFile(string path) {
+        Console.WriteLine("Dosya okunuyor: " + path);
+
+        // BUG: StreamReader objesi kapatılmıyor (Close/Dispose yok)
+        // Bu durum bellek sızıntısına ve dosyanın kilitli kalmasına yol açar.
+        StreamReader reader = new StreamReader(path);
+        string data = reader.ReadToEnd();
         
-        // BUG: The StreamReader is instantiated but never closed or disposed.
-        // In a real application, this causes a resource leak and locks the file.
-        StreamReader fileReader = new StreamReader(filePath);
-        string fileContent = fileReader.ReadToEnd();
-        
-        Console.WriteLine("--- FILE START ---");
-        Console.WriteLine(fileContent);
-        Console.WriteLine("--- FILE END ---");
-        // missing fileReader.Close() or using block
+        Console.WriteLine("Veri Okundu. Uzunluk: " + data.Length);
+        // reader.Close(); eksik
     }
 }
