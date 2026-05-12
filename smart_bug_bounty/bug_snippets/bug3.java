@@ -1,19 +1,17 @@
-import java.util.Objects;
-
-public class UserValidator {
+public class PasswordChecker {
     public static void main(String[] args) {
-        // Simulating user input comparison
-        String registeredUser = new String("admin_user");
-        String loginAttempt = new String("admin_user");
+        // İki farklı String objesi oluşturuluyor
+        String storedPass = new String("secure123");
+        String enteredPass = new String("secure123");
 
-        System.out.println("Checking credentials for: " + loginAttempt);
+        System.out.println("Şifre kontrol ediliyor...");
 
-        // BUG: Using == for string object comparison instead of .equals()
-        // This compares memory references rather than content.
-        if (loginAttempt == registeredUser) {
-            System.out.println("Login Successful: Identity verified.");
+        // BUG: İçerik karşılaştırmak için .equals() yerine == kullanılıyor
+        // Bu, değerleri değil bellekteki adresleri karşılaştırır.
+        if (enteredPass == storedPass) {
+            System.out.println("Giriş Başarılı!");
         } else {
-            System.out.println("Login Failed: Strings do not match reference.");
+            System.out.println("Hatalı Şifre: Referanslar uyuşmuyor.");
         }
     }
 }
