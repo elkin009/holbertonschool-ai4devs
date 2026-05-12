@@ -5,6 +5,8 @@ def get_last_elements(items, n):
     """
     if not isinstance(items, list):
         return "Hata: Liste gerekli"
+    if n <= 0:
+        return []
     
     # BUG: Off-by-one error (Gereksiz +1 var)
     # Doğrusu: items[len(items) - n:]
