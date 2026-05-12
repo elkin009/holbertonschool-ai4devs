@@ -1,16 +1,16 @@
 # Bug Descriptions
 
 ## bug1.py
-- Intended: Return last n items.
+- Intended: Return the last n items in a list.
 - Issue: Off-by-one error.
 
 ## bug2.js
-- Intended: Sum numbers in array.
-- Issue: String concatenation.
+- Intended: Sum numbers in an array.
+- Issue: Using 'for...in' causing string concatenation.
 
 ## bug3.java
 - Intended: Compare string values.
-- Issue: Reference comparison.
+- Issue: Using == instead of .equals().
 
 ## bug4.cs
 - Intended: Read file content.
