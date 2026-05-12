@@ -3,11 +3,12 @@ using System.IO;
 
 class Loader {
     public void Read(string path) {
-        // BUG
+        // BUG: Resource leak
         StreamReader r = new StreamReader(path);
         string d = r.ReadToEnd();
         Console.WriteLine(d);
     }
 }
-// Line 11
 // Line 12
+// Line 13
+// Line 14
