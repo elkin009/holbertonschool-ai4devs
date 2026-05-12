@@ -15,13 +15,42 @@
   },
   "paths": {
     "/tasks": {
-      "get": { "summary": "List tasks with pagination" },
-      "post": { "summary": "Create task" }
+      "get": {
+        "summary": "List tasks with pagination",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          { "name": "page", "in": "query", "schema": { "type": "integer" } },
+          { "name": "limit", "in": "query", "schema": { "type": "integer" } }
+        ],
+        "responses": { 
+          "200": { "description": "OK" }, 
+          "401": { "description": "Unauthorized" },
+          "500": { "description": "Error" }
+        }
+      },
+      "post": {
+        "summary": "Create task",
+        "security": [{ "bearerAuth": [] }],
+        "responses": { 
+          "201": { "description": "Created" }, 
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        }
+      }
     },
     "/tasks/{id}": {
-      "get": { "summary": "Get task" },
-      "put": { "summary": "Update task" },
-      "delete": { "summary": "Delete task" }
+      "get": { 
+        "security": [{ "bearerAuth": [] }],
+        "responses": { "200": { "description": "OK" }, "401": { "description": "Unauthorized" }, "404": { "description": "Not Found" } } 
+      },
+      "put": { 
+        "security": [{ "bearerAuth": [] }],
+        "responses": { "200": { "description": "OK" }, "401": { "description": "Unauthorized" }, "404": { "description": "Not Found" } } 
+      },
+      "delete": { 
+        "security": [{ "bearerAuth": [] }],
+        "responses": { "204": { "description": "Deleted" }, "401": { "description": "Unauthorized" }, "404": { "description": "Not Found" } } 
+      }
     }
   }
 }

@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Task Management API
-  description: Robust API with JWT, Pagination, and full CRUD.
+  description: Professional API with JWT, Detailed Pagination, and Error Responses.
   version: 1.0.0
 components:
   securitySchemes:
@@ -9,43 +9,100 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
+  schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
 paths:
   /tasks:
     get:
-      summary: List all tasks (with pagination)
+      summary: List tasks with pagination
       security:
         - bearerAuth: []
       parameters:
         - name: page
           in: query
+          description: Page number
           schema:
             type: integer
             default: 1
+        - name: limit
+          in: query
+          description: Number of items per page
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: Successful retrieval
+        '401':
+          description: Unauthorized - JWT missing or invalid
+        '500':
+          description: Internal Server Error
+    post:
+      summary: Create a new task
+      security:
+        - bearerAuth: []
+      responses:
+        '201':
+          description: Task created
+        '400':
+          description: Bad Request - Invalid data
+        '401':
+          description: Unauthorized
+  /tasks/{id}:
+    get:
+      summary: Get task by ID
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
       responses:
         '200':
           description: OK
         '401':
           description: Unauthorized
-    post:
-      summary: Create a task
-      responses:
-        '201':
-          description: Created
-  /tasks/{id}:
-    get:
-      summary: Get task details
-      responses:
-        '200':
-          description: OK
         '404':
-          description: Not Found
+          description: Task not found
     put:
       summary: Update a task
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
       responses:
         '200':
-          description: Updated
+          description: Task updated
+        '400':
+          description: Invalid input
+        '401':
+          description: Unauthorized
+        '404':
+          description: Task not found
     delete:
       summary: Delete a task
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
       responses:
         '204':
-          description: Deleted
+          description: Task deleted
+        '401':
+          description: Unauthorized
+        '404':
+          description: Task not found
