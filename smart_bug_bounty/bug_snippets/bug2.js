@@ -1,13 +1,14 @@
-function calculateSum(numbers) {
-    let total = 0;
-    if (numbers.length === 0) return 0;
-    // BUG
-    for (let index in numbers) {
-        total += numbers[index];
-    }
-    return total;
-}
+def get_last_elements(items, n):
+    if not isinstance(items, list):
+        return "Error"
+    if n <= 0:
+        return []
+    # BUG: Off-by-one
+    result = items[len(items) - n + 1:]
+    return result
 
-const prices = [10, 20, 30];
-console.log(calculateSum(prices));
-// Line 12
+data = [1, 2, 3, 4, 5]
+print(get_last_elements(data, 3))
+# Line 11
+# Line 12
+# Line 13
