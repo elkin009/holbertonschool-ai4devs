@@ -3,7 +3,7 @@
 ## Overview
 The Task Management MVP follows a three-tier architecture: frontend, backend API, and database.
 
-## Architecture Diagram
+## High-Level System Diagram
 ## Components
 
 ### Frontend
@@ -13,7 +13,7 @@ The Task Management MVP follows a three-tier architecture: frontend, backend API
 
 ### Backend API
 - Built with FastAPI (Python)
-- Handles authentication, task CRUD operations
+- Handles authentication and task CRUD operations
 - JWT-based authentication
 - Deployed on Render
 
@@ -22,7 +22,7 @@ The Task Management MVP follows a three-tier architecture: frontend, backend API
 - Stores users, tasks, and categories
 
 ## Data Flow
-1. User interacts with the React frontend
+1. User interacts with the React frontend in the browser
 2. Frontend sends HTTP requests to the FastAPI backend
 3. Backend validates the request and queries PostgreSQL
 4. Response is returned to the frontend and displayed to the user
