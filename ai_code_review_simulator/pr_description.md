@@ -1,12 +1,12 @@
-# Pull Request: [Bura qısa və aydın başlıq yazın]
+# Pull Request: Add Task Filtering Feature
 
 ## Summary
-[Bura yeni funksiyanın nə işə yaradığını və hansı endpoint/modul əlavə etdiyini yazın.]
+Implements task filtering by status and due date. Adds new API endpoint `/tasks/filter`.
 
 ## Changes
-- [Dəyişən və ya yeni əlavə olunan 1-ci faylın adı və funksiyası]
-- [Dəyişən və ya yeni əlavə olunan 2-ci faylın adı və funksiyası]
-- [Yazılan testlər barədə qeyd]
+- Added filter_tasks() in tasks.py
+- Updated Task model
+- Added 5 new unit tests
 
 ## Context
-~[Kod sətirinin sayını yazın, məsələn: 150] LOC. Related issue: #[Problemin/Taskın nömrəsi]. [Yaranma səbəbi və motivasiya].
+~150 LOC. Related issue: #42.
