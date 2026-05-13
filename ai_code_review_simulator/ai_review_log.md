@@ -12,22 +12,22 @@
 
 - (line 67) **Correctness**: Use `is None` instead of `== None` for null checks. Using `==` for None comparison is against PEP8 and can produce unexpected results with custom `__eq__` implementations.
 
-- (line 89) **Performance**: Avoid mutable default argument `def filter_tasks(filters=[])`. Mutable default arguments are shared across all calls, which can cause subtle bugs that are difficult to trace.
+- (line 89) **Performance**: Avoid mutable default argument `def filter_tasks(filters=[])`. Mutable default arguments are shared across all calls, which can cause subtle bugs that are very difficult to trace.
 
-- (line 103) **Reliability**: `except Exception` is too broad and should catch specific exceptions. Catching all exceptions can mask real errors and make debugging significantly harder.
+- (line 103) **Reliability**: `except Exception` is too broad and should catch specific exceptions. Catching all exceptions can mask real errors and make debugging significantly harder in production.
 
 - (line 120) **Maintainability**: Return type annotation is missing on `filter_tasks()`. Type annotations improve code readability and enable static analysis tools to catch type-related bugs early.
 
-- (line 135) **Performance**: The current implementation queries the database on every call without caching. For frequently used filters, consider adding a caching layer to reduce database load.
+- (line 135) **Performance**: The current implementation queries the database on every call without caching. For frequently used filters, adding a caching layer such as Redis would significantly reduce database load and improve response times.
 
-- (line 148) **Security**: User-supplied filter values are not sanitized before being passed to the query builder. Always sanitize and validate external inputs to prevent injection attacks.
+- (line 148) **Security**: User-supplied filter values are not sanitized before being passed to the query builder. Always sanitize and validate external inputs to prevent SQL injection and other injection attacks.
 
 ### Global Feedback
 
-- **Security Review**: The `/tasks/filter` endpoint does not implement authentication or authorization checks. Any unauthenticated user can access all tasks, which poses a serious security risk. It is strongly recommended to add token-based authentication and role-based access control.
+- **Security Review**: The `/tasks/filter` endpoint does not implement authentication or authorization checks, meaning any unauthenticated user can access all task data. It is strongly recommended to add token-based authentication such as JWT and role-based access control to restrict access to authorized users only.
 
-- **Performance Review**: The `filter_tasks()` function loads all matching records into memory before returning results. For large datasets, this can cause significant memory overhead. Implementing pagination or lazy loading would greatly improve scalability and response times.
+- **Performance Review**: The `filter_tasks()` function loads all matching records into memory at once before returning results, which can cause significant memory overhead for large datasets. Implementing pagination with limit and offset parameters, or using lazy loading, would greatly improve scalability and reduce response times under high load.
 
-- **Maintainability Review**: The `filter_tasks()` function handles too many responsibilities including input parsing, database querying, and result formatting. It should be refactored into smaller single-responsibility functions to improve testability and readability.
+- **Maintainability Review**: The `filter_tasks()` function currently handles too many responsibilities including input parsing, database querying, and result formatting, which violates the Single Responsibility Principle. Refactoring it into smaller, focused helper functions would improve testability, readability, and make future changes easier to implement safely.
 
-- **Reliability Review**: There is no error handling for empty query results or database connection failures. The function should gracefully handle these edge cases and return meaningful error messages to the caller instead of raising unhandled exceptions.
+- **Reliability Review**: There is no error handling for empty query results or database connection failures anywhere in the filtering logic. The function should gracefully handle these edge cases by catching specific exceptions and returning meaningful, structured error messages to the caller instead of propagating unhandled exceptions.
