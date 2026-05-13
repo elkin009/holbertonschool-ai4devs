@@ -21,9 +21,3 @@ As a user, I want to search tasks by keyword so that I can find a specific task 
 
 ## User Story 8
 As a user, I want to delete a task so that I can remove items that are no longer relevant.
-
-## User Story 9
-As a user, I want to edit an existing task so that I can update details when requirements change.
-
-## User Story 10
-As a user, I want to see a dashboard summary showing total, in-progress, and completed tasks so that I can get a quick overview of my productivity.
